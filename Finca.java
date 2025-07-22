@@ -1,12 +1,13 @@
-public class Finca{
-    String vereda;
-    String NombreParcela;
-    String nombrePersona;
-    String cultivo;
-    int hectareas; 
-    int cargas;
-    boolean abono;
-    int lluvia;
+public class Finca {
+    private String vereda;
+    private String NombreParcela;
+    private String nombrePersona;
+    private String cultivo;
+    private int hectareas;
+    private int cargas;
+    private boolean abono;
+    private int lluvia;
+
     public Finca(String vereda, String NombreParcela, String nombrePersona,
                  String cultivo, int hectareas, int cargas, boolean abono, int lluvia) {
         this.vereda = vereda;
@@ -18,6 +19,7 @@ public class Finca{
         this.abono = abono;
         this.lluvia = lluvia;
     }
+
     public boolean requiereAbono() {
         if (!abono) {
             System.out.println("La parcela " + NombreParcela + " necesita abono.");
@@ -25,21 +27,34 @@ public class Finca{
         }
         return false;
     }
-    public void simularLluvia(int mmPorDia) {
-    if (lluvia >= 100) {
-        System.out.println("Ya hay suficiente lluvia: " + lluvia + " mm.");
-        return;
+
+    public void clasificarLluvia() {
+        System.out.println("Lluvia registrada: " + lluvia + " mm");
+        if (lluvia < 30) {
+            System.out.println("Clasificación: Lluvia ligera");
+        } else if (lluvia < 70) {
+            System.out.println("Clasificación: Lluvia moderada");
+        } else {
+            System.out.println("Clasificación: Lluvia fuerte");
+        }
     }
 
-    int dias = 0;
-    int lluviaTotal = lluvia;
-    while (lluviaTotal < 100) {
-        lluviaTotal += mmPorDia;
-        dias++;
+    public boolean esLluviaFuerte() {
+        return lluvia >= 70;
     }
-    lluvia = lluviaTotal;
-    System.out.println("Lluvia simulada por " + dias + " días hasta alcanzar " + lluvia + " mm.");
-}
+
+    public void setLluvia(int nuevaLluvia) {
+        this.lluvia = nuevaLluvia;
+    }
+
+    public int getLluvia() {
+        return lluvia;
+    }
+
+    public String getNombreParcela() {
+        return NombreParcela;
+    }
+
     public void mostrarHectareasDetalle() {
         System.out.println("Detalle de hectáreas cultivadas en " + NombreParcela + ":");
         for (int i = 1; i <= hectareas; i++) {
@@ -62,18 +77,5 @@ public class Finca{
     public void aplicarAbono() {
         abono = true;
         System.out.println("Se aplicó abono a la parcela " + NombreParcela);
-    }
-
-    public void aumentarCargas(int adicionales) {
-        cargas += adicionales;
-    }
-
-    public double produccionPorHectarea() {
-        if (hectareas == 0) return 0;
-        return (double) cargas / hectareas;
-    }
-
-    public boolean hayExcesoLluvia() {
-        return lluvia > 100;
     }
 }
